@@ -1,0 +1,115 @@
+---
+# tasks file for change-cluster
+- name: Disabling Cluster A - App1
+  bigip_pool_member:
+    pool: "{{ poolApp1 }}"
+    address: "{{ item }}"
+    port: "{{ poolServerPort }}"
+    state: forced_offline
+    provider:
+      server: "{{ balancerName }}"
+      user: "{{ balancerUser }}"
+      password: "{{ balancerPass }}"
+      validate_certs: no
+  loop: "{{ app1ClusterA }}"
+  delegate_to: localhost
+  when: disablingClusterApp1 == "A"
+- name: Activating Cluster B - App1
+  bigip_pool_member:
+    pool: "{{ poolApp1 }}"
+    address: "{{ item }}"
+    port: "{{ poolServerPort }}"
+    state: enabled
+    provider:
+      server: "{{ balancerName }}"
+      user: "{{ balancerUser }}"
+      password: "{{ balancerPass }}"
+      validate_certs: no
+  loop: "{{ app1ClusterB }}"
+  delegate_to: localhost
+  when: disablingClusterApp1 == "A"
+- name: Disabling Cluster B - App1
+  bigip_pool_member:
+    pool: "{{ poolApp1 }}"
+    address: "{{ item }}"
+    port: "{{ poolServerPort }}"
+    state: forced_offline
+    provider:
+      server: "{{ balancerName }}"
+      user: "{{ balancerUser }}"
+      password: "{{ balancerPass }}"
+      validate_certs: no
+  loop: "{{ app1ClusterB }}"
+  delegate_to: localhost
+  when: disablingClusterApp1 == "B"
+- name: Activating Cluster A - App1
+  bigip_pool_member:
+    pool: "{{ poolApp1 }}"
+    address: "{{ item }}"
+    port: "{{ poolServerPort }}"
+    state: enabled
+    provider:
+      server: "{{ balancerName }}"
+      user: "{{ balancerUser }}"
+      password: "{{ balancerPass }}"
+      validate_certs: no
+  loop: "{{ app1ClusterA }}"      
+  delegate_to: localhost
+  when: disablingClusterApp1 == "B"
+- name: Disabling Cluster A - App2
+  bigip_pool_member:
+    pool: "{{ poolApp2 }}"
+    address: "{{ item }}"
+    port: "{{ poolServerPort }}"
+    state: forced_offline
+    provider:
+      server: "{{ balancerName }}"
+      user: "{{ balancerUser }}"
+      password: "{{ balancerPass }}"
+      validate_certs: no
+  loop: "{{ app2ClusterA }}"
+  delegate_to: localhost
+  when: disablingClusterApp2 == "A"
+- name: Activating Cluster B - App2
+  bigip_pool_member:
+    pool: "{{ poolApp2 }}"
+    address: "{{ item }}"
+    port: "{{ poolServerPort }}"
+    state: enabled
+    provider:
+      server: "{{ balancerName }}"
+      user: "{{ balancerUser }}"
+      password: "{{ balancerPass }}"
+      validate_certs: no
+  loop: "{{ app2ClusterB }}"
+  delegate_to: localhost
+  when: disablingClusterApp2 == "A"
+- name: Disabling Cluster B - App2
+  bigip_pool_member:
+    pool: "{{ poolApp2 }}"
+    address: "{{ item }}"
+    port: "{{ poolServerPort }}"
+    state: forced_offline
+    provider:
+      server: "{{ balancerName }}"
+      user: "{{ balancerUser }}"
+      password: "{{ balancerPass }}"
+      validate_certs: no
+  loop: "{{ app2ClusterB }}"
+  delegate_to: localhost
+  when: disablingClusterApp2 == "B"
+- name: Activating Cluster A - App2
+  bigip_pool_member:
+    pool: "{{ poolApp2 }}"
+    address: "{{ item }}"
+    port: "{{ poolServerPort }}"
+    state: enabled
+    provider:
+      server: "{{ balancerName }}"
+      user: "{{ balancerUser }}"
+      password: "{{ balancerPass }}"
+      validate_certs: no
+  loop: "{{ app2ClusterA }}"
+  delegate_to: localhost
+  when: disablingClusterApp2 == "B"
+...

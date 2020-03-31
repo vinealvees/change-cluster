@@ -1,0 +1,14 @@
+galaxy_info:
+  author: Vinicius A Santos // Github vinealvees
+  description: This role aims to change the nodes that are active within the same pool. In a traditional scenario, this could be controlled through the balancer "monitors", in the case of BIG IP, but, due to the particularity of the application, this switching is necessary.
+  license: license (GPL-2.0-or-later, MIT, etc)
+  min_ansible_version: 2.9
+  galaxy_tags:
+    bigip
+    switching
+    pool
+    management
+    f5
+    ltm
+  dependencies:
+    Requires BIG-IP software version >= 12
